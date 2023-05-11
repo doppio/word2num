@@ -9,6 +9,8 @@
 - Digit sequences
 - Fuzzy string matching
 
+---
+
 ## Table of Contents <!-- omit in toc -->
 - [🛠️ Installation](#️-installation)
 - [💻 Usage](#-usage)
@@ -19,6 +21,8 @@
 - [🌐 Language Support](#-language-support)
 - [🤝 Contributing](#-contributing)
 - [📃 License](#-license)
+
+---
 
 
 ## 🛠️ Installation
