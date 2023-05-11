@@ -1,5 +1,7 @@
 # word2num 💬 → 🔢 <!-- omit in toc -->
 
+![PyPI Version](https://img.shields.io/pypi/v/word2num?logo=pypi&logoColor=white&style=flat-square)
+
 `word2num` is a Python package for converting numbers expressed in natural language to numerical values. It supports:
 
 - Fractions
