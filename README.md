@@ -1,4 +1,4 @@
-# word2num 💬 → 🔢
+# word2num 💬 → 🔢 <!-- omit in toc -->
 
 `word2num` is a Python package for converting numbers expressed in natural language to numerical values. It supports:
 
@@ -9,17 +9,17 @@
 - Digit sequences
 - Fuzzy string matching
 
-## Table of Contents
-
-- [Installation](#🛠️-installation)
-- [Usage](#💻-usage)
-- [Fuzzy String Matching](#🐻-fuzzy-string-matching)
+## Table of Contents <!-- omit in toc -->
+- [🛠️ Installation](#️-installation)
+- [💻 Usage](#-usage)
+- [🐻 Fuzzy String Matching](#-fuzzy-string-matching)
   - [Default Fuzzy Threshold](#default-fuzzy-threshold)
   - [Custom Fuzzy Threshold](#custom-fuzzy-threshold)
-  - [Exact Matching](#exact-matching)
-- [Language Support](#🌐-language-support)
-- [Contributing](#🤝-contributing)
-- [License](#📃-license)
+  - [Disable Fuzzy Matching](#disable-fuzzy-matching)
+- [🌐 Language Support](#-language-support)
+- [🤝 Contributing](#-contributing)
+- [📃 License](#-license)
+
 
 ## 🛠️ Installation
 
