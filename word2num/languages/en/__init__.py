@@ -1,1 +1,1 @@
-from .parser import EnglishNumberWordParser
+from .parser import EnglishParser

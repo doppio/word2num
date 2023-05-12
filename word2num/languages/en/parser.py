@@ -1,16 +1,15 @@
 from typing import List, Optional, Tuple
-from word2num.languages.en.word_matcher import WordMatcher
-from word2num.number_word_parser import BaseNumberWordParser
+from word2num.base.parser import Parser
 from word2num.tokenization import SimpleTokenizer
-from .vocabulary import DIGITS, UNITS, WHOLE_NUMBERS
+from .word_matcher import EnglishWordMatcher
 
 
-class EnglishNumberWordParser(BaseNumberWordParser):
+class EnglishParser(Parser):
     """Converts English-language text representations of numbers to numerical values."""
 
     def __init__(self, fuzzy_threshold: int):
         """Initializes the English number word parser."""
-        self.matcher = WordMatcher(fuzzy_threshold)
+        self.matcher = EnglishWordMatcher(fuzzy_threshold)
 
     def parse(self, text: str) -> Optional[float]:
         """
@@ -69,7 +68,7 @@ class EnglishNumberWordParser(BaseNumberWordParser):
 
         for word in words:
             match = self.matcher.match_digit(word)
-            digit = DIGITS[match]
+            digit = self.matcher.vocabulary.digits[match]
             digit_strings.append(str(digit))
 
         return float(''.join(digit for digit in digit_strings))
@@ -88,7 +87,8 @@ class EnglishNumberWordParser(BaseNumberWordParser):
 
     def _parse_composite_word_sequence(self, words: List[str]) -> Optional[float]:
         """Parses a composite sequence of number words (e.g. "twenty-three million")."""
-        sorted_units = sorted(UNITS.items(), key=lambda x: -x[1])
+        sorted_units = sorted(
+            self.matcher.vocabulary.units.items(), key=lambda x: -x[1])
         unit_names = [unit[0] for unit in sorted_units]
 
         for unit_name in unit_names:
@@ -103,7 +103,7 @@ class EnglishNumberWordParser(BaseNumberWordParser):
                     # Failed to parse one of the sides, so the result can't be determined.
                     return None
                 else:
-                    return left_value * UNITS[unit_name] + right_value
+                    return left_value * self.matcher.vocabulary.units[unit_name] + right_value
 
         # There are no units in the sequence, so we can assume it's a simple sequence of whole numbers.
         return self._parse_whole_number_sequence(words)
@@ -114,7 +114,7 @@ class EnglishNumberWordParser(BaseNumberWordParser):
         for word in words:
             match = self.matcher.match_whole_number(word)
             if match:
-                sum += WHOLE_NUMBERS[match]
+                sum += self.matcher.vocabulary.whole_numbers[match]
             else:
                 return None
 

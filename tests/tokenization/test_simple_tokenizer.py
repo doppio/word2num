@@ -24,6 +24,12 @@ class SimpleTokenizerTest(unittest.TestCase):
         tokens = self.tokenizer.tokenize(text)
         self.assertEqual(tokens, expected_tokens)
 
+    def test_accented_letters(self):
+        text = "Àúß öñ, Óô Çç"
+        expected_tokens = ["àúß", "öñ", "óô", "çç"]
+        tokens = self.tokenizer.tokenize(text)
+        self.assertEqual(tokens, expected_tokens)
+
 
 if __name__ == '__main__':
     unittest.main()

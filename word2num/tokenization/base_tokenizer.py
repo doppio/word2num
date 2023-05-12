@@ -14,10 +14,7 @@ class BaseTokenizer(ABC):
         """
         Split the given text into a list of words that can matched to a known vocabulary.
 
-        Args:
-            text (str): The input text to tokenize.
-
-        Returns:
-            list: A list of strings representing the words.
+        :param text: The text to tokenize.
+        :return: A list of words.
         """
         pass

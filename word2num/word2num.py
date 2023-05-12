@@ -1,21 +1,24 @@
 from typing import Optional
-from .languages.en import EnglishNumberWordParser
+from .languages.en import EnglishParser
 
 parsers = {
-    "en": EnglishNumberWordParser,
+    "en": EnglishParser,
 }
+
 
 class Word2Num:
     def __init__(self, language_code: str = "en", fuzzy_threshold: int = 80):
-        self.exact_converter, self.fuzzy_converter = self._initialize_converters(language_code, fuzzy_threshold)
+        self.exact_converter, self.fuzzy_converter = self._initialize_parsers(
+            language_code, fuzzy_threshold)
 
     @staticmethod
-    def _initialize_converters(language_code: str, fuzzy_threshold: int):
+    def _initialize_parsers(language_code: str, fuzzy_threshold: int):
         if language_code in parsers.keys():
-            converter_class = parsers[language_code]
-            exact_converter = converter_class(fuzzy_threshold=100)
-            fuzzy_converter = converter_class(fuzzy_threshold) if fuzzy_threshold < 100 else None
-            return exact_converter, fuzzy_converter
+            parser_class = parsers[language_code]
+            exact_parser = parser_class(fuzzy_threshold=100)
+            fuzzy_parser = parser_class(
+                fuzzy_threshold) if fuzzy_threshold < 100 else None
+            return exact_parser, fuzzy_parser
         else:
             raise ValueError(f"Unsupported language: {language_code}")
 
@@ -38,7 +41,8 @@ class Word2Num:
     def __repr__(self) -> str:
         return repr(self.exact_converter)
 
-def word2num(text: str, language: str = "en", fuzzy_threshold: int = 80) -> Optional[float]:
+
+def word2num(text: str, language_code: str = "en", fuzzy_threshold: int = 80) -> Optional[float]:
     """
     Converts a text representation of a number to its numerical value.
     This is a convenience method that creates a Word2Num instance and calls its parse method.
@@ -49,5 +53,9 @@ def word2num(text: str, language: str = "en", fuzzy_threshold: int = 80) -> Opti
     :param fuzzy_threshold: The minimum score for fuzzy string matching (default: 80).
     :return: The numerical value of the text representation or None if parsing fails.
     """
-    w2n = Word2Num(language_code=language, fuzzy_threshold=fuzzy_threshold)
+    w2n = Word2Num(
+        language_code=language_code,
+        fuzzy_threshold=fuzzy_threshold
+    )
+
     return w2n.parse(text)

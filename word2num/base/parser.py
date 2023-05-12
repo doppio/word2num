@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-class BaseNumberWordParser(ABC):
+
+class Parser(ABC):
     """
     Abstract Base Class for a parser that converts textual representations of numbers into numerical values.
     """
@@ -10,7 +11,7 @@ class BaseNumberWordParser(ABC):
     def parse(self, text: str) -> Optional[float]:
         """
         Parses a number from the given text representation.
-        
+
         :param text: A text representation of a number.
         :return: The numerical value of the text representation or None if parsing fails.
         """
