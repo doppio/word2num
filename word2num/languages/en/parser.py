@@ -1,7 +1,7 @@
-import re
 from typing import List, Optional, Tuple
 from word2num.languages.en.word_matcher import WordMatcher
 from word2num.number_word_parser import BaseNumberWordParser
+from word2num.tokenization import SimpleTokenizer
 from .vocabulary import DIGITS, UNITS, WHOLE_NUMBERS
 
 
@@ -19,7 +19,8 @@ class EnglishNumberWordParser(BaseNumberWordParser):
         :param text: A text representation of a number.
         :return: The numerical value of the text representation or None if parsing fails.
         """
-        words = self._tokenize_text(text)
+        tokenizer = SimpleTokenizer()
+        words = tokenizer.tokenize(text)
         is_negative, words = self._check_and_remove_negative(words)
 
         if self._has_decimal(words):
@@ -34,11 +35,6 @@ class EnglishNumberWordParser(BaseNumberWordParser):
             result = whole_part + fraction_part
 
         return -result if is_negative else result
-
-    def _tokenize_text(self, text: str) -> List[str]:
-        """Splits the given text into a list of words."""
-        text = text.lower().replace(',', ' ')
-        return re.findall(r"\w+", text)
 
     def _check_and_remove_negative(self, words: List[str]) -> tuple:
         """Checks if the given word list represents a negative number, and remove the negative signifier if it does."""
