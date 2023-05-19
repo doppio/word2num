@@ -67,7 +67,7 @@ class StandardParser(Parser):
             # The words are a series of digits (e.g. "one two three").
             return self._parse_digit_sequence(words)
 
-        return self._parse_word_sequence_with_units(words)
+        return self._parse_whole_number_sequence(words)
 
     def _parse_digit_sequence(self, words: List[str]) -> Optional[float]:
         """Parses a sequence of digits from the given word list."""
@@ -81,8 +81,8 @@ class StandardParser(Parser):
         digit_sequence = float(''.join(digit_strings))
         return digit_sequence
 
-    def _parse_word_sequence_with_units(self, words: List[str]) -> Optional[float]:
-        """Parses a sequence of number words potentially including units (e.g. "twenty-three million")."""
+    def _parse_whole_number_sequence(self, words: List[str]) -> Optional[float]:
+        """Parses a sequence of whole number words potentially including units (e.g. "twenty-three million")."""
         # Sort units in decreasing order of their numerical value
         sorted_units = sorted(
             self.matcher.vocabulary.units.items(), key=lambda x: -x[1])
@@ -100,11 +100,11 @@ class StandardParser(Parser):
                 else:
                     return left_value * self.matcher.vocabulary.units[unit_name] + right_value
 
-        # No units in the sequence, so we can assume it's a simple sequence of whole numbers.
-        return self._parse_whole_number_sequence(words)
+        # No units in the sequence, so it's a simple sequence of whole numbers.
+        return self._parse_simple_whole_number_sequence(words)
 
-    def _parse_whole_number_sequence(self, words: List[str]) -> Optional[float]:
-        """Parses a simple sequence of words representing whole numbers, without any units (e.g. "twenty six")."""
+    def _parse_simple_whole_number_sequence(self, words: List[str]) -> Optional[float]:
+        """Parses a simple sequence of whole words representing whole numbers, without any units (e.g. "twenty six")."""
         sum = 0
         for word in words:
             match = self.matcher.match_whole_number(word)

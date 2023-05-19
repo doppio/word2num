@@ -3,9 +3,7 @@ from typing import Optional
 
 
 class Parser(ABC):
-    """
-    Abstract Base Class for a parser that converts textual representations of numbers into numerical values.
-    """
+    """Abstract Base Class for a parser that converts textual representations of numbers into numerical values."""
 
     @abstractmethod
     def parse(self, text: str) -> Optional[float]:
@@ -18,17 +16,9 @@ class Parser(ABC):
         pass
 
     def __str__(self) -> str:
-        """
-        Returns a string representation of the class.
-
-        :return: A string representation of the class.
-        """
+        """Returns a string representation of the class."""
         return f"{self.__class__.__name__}()"
 
     def __repr__(self) -> str:
-        """
-        Returns a formal string representation of the class.
-
-        :return: A formal string representation of the class.
-        """
+        """Returns a formal string representation of the class."""
         return self.__str__()
