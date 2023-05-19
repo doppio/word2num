@@ -1,8 +1,11 @@
 from typing import Optional
+
+from .languages.es.parser import SpanishParser
 from .languages.en import EnglishParser
 
 parsers = {
     "en": EnglishParser,
+    "es": SpanishParser,
 }
 
 
