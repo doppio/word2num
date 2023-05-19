@@ -1,5 +1,5 @@
 import re
-from word2num.base.word_matcher import WordMatcher
+from word2num.word_matching.word_matcher import WordMatcher
 from .vocabulary import EnglishVocabulary
 
 

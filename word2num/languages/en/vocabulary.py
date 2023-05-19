@@ -1,4 +1,4 @@
-from word2num.base.vocabulary import Vocabulary
+from word2num.word_matching.vocabulary import Vocabulary
 
 
 class EnglishVocabulary(Vocabulary):
