@@ -16,6 +16,9 @@ class SpanishParser(StandardParser):
         if not words:
             return 0
 
+
+        # Skip the "y" in numbers like "cinquenta y tres"
+        words = [word for word in words if word != 'y']
         return super()._parse_whole_number(words)
 
     def _find_and_remove_negative_signifier(self, words: List[str]) -> tuple:
