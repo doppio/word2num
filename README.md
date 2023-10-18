@@ -93,7 +93,10 @@ w2n.parse("two hundered and twinty-two")  # None
 
 ## 🌐 Language Support
 
-This package currently only supports numbers expressed in English, but we'd love to add support for other languages. Contributions are more than welcome, so if you're interested in contributing, see the "Contributing" section below!
+* English
+* Spanish
+
+We'd love to add support for other languages. Contributions are more than welcome, so if you're interested in contributing, see the "Contributing" section below!
 
 ## 🤝 Contributing
 
