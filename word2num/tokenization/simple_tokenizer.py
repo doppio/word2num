@@ -14,5 +14,6 @@ class SimpleTokenizer(BaseTokenizer):
     def tokenize(self, text):
         text = text.lower()
 
+        # Match all alphabetic words including accented characters.
         # See https://stackoverflow.com/questions/20690499 for details on the regex
         return re.findall(r"[A-Za-zÀ-ÖØ-öø-ÿ]+", text)

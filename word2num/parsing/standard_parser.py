@@ -8,7 +8,7 @@ class StandardParser(Parser):
     """
     Converts text representations of numbers to numerical values.
     This a parser that can be used across languages that structure
-    number phrases in a fundamentally similar way to English.
+    number phrases in way that is fundamentally similar to English.
     """
 
     def __init__(self, word_matcher: WordMatcher):
