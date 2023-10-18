@@ -1,6 +1,5 @@
 from word2num.word_matching.vocabulary import Vocabulary
 
-
 class SpanishVocabulary(Vocabulary):
     """
     Vocabulary class for Spanish language number word parsing.
@@ -26,7 +25,9 @@ class SpanishVocabulary(Vocabulary):
         return {
             **self.digits,
             **self.units,
-
+            **self.definite_articles,
+            "un": 1,
+            "una": 1,
             "diez": 10,
             "once": 11,
             "doce": 12,
@@ -54,12 +55,8 @@ class SpanishVocabulary(Vocabulary):
             "setenta": 70,
             "ochenta": 80,
             "noventa": 90,
-        }
-
-    @property
-    def units(self):
-        return {
             "cien": 100,
+            "ciento": 100,
             "doscientos": 200,
             "trescientos": 300,
             "cuatrocientos": 400,
@@ -68,6 +65,11 @@ class SpanishVocabulary(Vocabulary):
             "setecientos": 700,
             "ochocientos": 800,
             "novecientos": 900,
+        }
+
+    @property
+    def units(self):
+        return {
             "mil": 1000,
             "millón": 10 ** 6,
             "millones": 10 ** 6,
@@ -82,21 +84,28 @@ class SpanishVocabulary(Vocabulary):
     @property
     def irregular_denominators(self):
         return {
-            "half": 2,
-            "quarter": 4,
-            "third": 3,
-            "fifth": 5,
-            "eighth": 8,
-            "ninth": 9,
-            "twelfth": 12,
-            "twentieth": 20,
-            "thirtieth": 30,
-            "fortieth": 40,
-            "fiftieth": 50,
-            "sixtieth": 60,
-            "seventieth": 70,
-            "eightieth": 80,
-            "ninetieth": 90,
+            "mitad": 2,
+            "media": 2,
+            "medio": 2,
+            "tercio": 3,
+            "cuarto": 4,
+            "quinto": 5,
+            "sexto": 6,
+            "séptimo": 7,
+            "octavo": 8,
+            "noveno": 9,
+            "décimo": 10,
+            "centésimo": 100,
+            "milésimo": 1000,
+            "millonésimo": 10 ** 6,
+            "billonésimo": 10 ** 12,
+        }
+
+    @property
+    def definite_articles(self):
+        return {
+            "la": 1,
+            "el": 1,
         }
 
     @property

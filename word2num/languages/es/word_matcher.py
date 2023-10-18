@@ -15,12 +15,12 @@ class SpanishWordMatcher(WordMatcher):
     def _regular_denominator_to_whole_number(self, word: str) -> str:
         """
         Converts a regular denominator word to its equivalent whole number form.
-        e.g. "tenth" -> "ten"
+        e.g. "doceavo" -> "doce"
 
         :param word: Regular denominator word to convert.
         :return: Whole number word equivalent of the denominator, if it exists, else None.
         """
-        pattern_match = re.match(r'([A-Z]+)ths?', word, flags=re.IGNORECASE)
+        pattern_match = re.match(r'([A-Z]+)avos?', word, flags=re.IGNORECASE)
         if not pattern_match:
             return None
 
@@ -35,7 +35,7 @@ class SpanishWordMatcher(WordMatcher):
         :param word: Whole number word to convert.
         :return: Regular denominator form of the word.
         """
-        return word + 'th'
+        return word + 'avo'
 
     def _match_irregular_denominator(self, word: str) -> tuple:
         """

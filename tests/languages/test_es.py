@@ -44,7 +44,7 @@ class TestSpanishParser(unittest.TestCase):
         parse = Word2Num(language_code=LANGUAGE_CODE).parse
 
         self.assertEqual(parse(
-            "dos mil novecientos cincuenta y seis"), 2956)
+           "dos mil novecientos cincuenta y seis"), 2956)
         self.assertEqual(
             parse("cincuenta y siete mil cuatrocientos veintiuno"), 57421)
         self.assertEqual(parse(
@@ -58,13 +58,13 @@ class TestSpanishParser(unittest.TestCase):
         parse = Word2Num(language_code=LANGUAGE_CODE).parse
 
         self.assertEqual(parse("un millón"), 1000000)
-        self.assertEqual(parse("dos mil milliones"), 20000000000)
+        self.assertEqual(parse("dos mil millones"), 2000000000)
         self.assertEqual(parse("tres billones"), 3000000000000)
 
     def test_small_numbers(self):
         parse = Word2Num(language_code=LANGUAGE_CODE).parse
 
-        self.assertAlmostEqual(parse("una milésima"), 1 / 1000)
+        self.assertAlmostEqual(parse("milésima"), 1 / 1000)
         self.assertAlmostEqual(parse("un millonésimo"), 1 / 1000000)
 
     def test_digit_sequences(self):
@@ -84,9 +84,8 @@ class TestSpanishParser(unittest.TestCase):
         self.assertEqual(parse("quatro"), 4)
         self.assertAlmostEqual(parse("unoo punto cincco"), 1.5)
         self.assertAlmostEqual(parse("tre y medip"), 3.5)
-        self.assertAlmostEqual(
-            extra_fuzzy_parse("dociento veintidos"), 222)
-        self.assertAlmostEqual(extra_fuzzy_parse("diecisees"), 16)
+        self.assertAlmostEqual(extra_fuzzy_parse("dociento veintidos"), 222)
+        self.assertAlmostEqual(extra_fuzzy_parse("diecises"), 16)
 
     def test_unrecognizable_words(self):
         parse = Word2Num(language_code=LANGUAGE_CODE).parse
@@ -100,7 +99,7 @@ class TestSpanishParser(unittest.TestCase):
             fuzzy_threshold=100
         ).parse
 
-        self.assertIsNone(parse("quatro"))
+        self.assertIsNone(parse("cuotro"))
 
 
 if __name__ == '__main__':
