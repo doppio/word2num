@@ -1,9 +1,7 @@
-from operator import is_
 from typing import List, Optional
-from word2num.languages.es.vocabulary import SpanishVocabulary
+
 from word2num.languages.es.word_matcher import SpanishWordMatcher
 from word2num.parsing.standard_parser import StandardParser
-from word2num.word_matching.word_matcher import WordMatcher
 
 
 class SpanishParser(StandardParser):
@@ -16,9 +14,8 @@ class SpanishParser(StandardParser):
         if not words:
             return 0
 
-
         # Skip the "y" in numbers like "cinquenta y tres"
-        words = [word for word in words if word != 'y']
+        words = [word for word in words if word != "y"]
         return super()._parse_whole_number(words)
 
     def _find_and_remove_negative_signifier(self, words: List[str]) -> tuple:
@@ -27,5 +24,5 @@ class SpanishParser(StandardParser):
         if is_negative:
             words.pop()
             return is_negative, words
-        
+
         return super()._find_and_remove_negative_signifier(words)

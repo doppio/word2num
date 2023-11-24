@@ -1,8 +1,7 @@
 from typing import List, Optional
-from word2num.languages.en.vocabulary import EnglishVocabulary
+
 from word2num.languages.en.word_matcher import EnglishWordMatcher
 from word2num.parsing.standard_parser import StandardParser
-from word2num.word_matching.word_matcher import WordMatcher
 
 
 class EnglishParser(StandardParser):
@@ -16,5 +15,5 @@ class EnglishParser(StandardParser):
             return 0
 
         # Skip the "and" in numbers like "one hundred and five"
-        words = [word for word in words if word != 'and']
+        words = [word for word in words if word != "and"]
         return super()._parse_whole_number(words)
