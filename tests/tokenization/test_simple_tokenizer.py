@@ -1,4 +1,5 @@
 import unittest
+
 from word2num.tokenization import SimpleTokenizer
 
 
@@ -8,7 +9,7 @@ class SimpleTokenizerTest(unittest.TestCase):
 
     def test_tokenize(self):
         text = "One, two! Three."
-        expected_tokens = ['one', 'two', 'three']
+        expected_tokens = ["one", "two", "three"]
         tokens = self.tokenizer.tokenize(text)
         self.assertEqual(tokens, expected_tokens)
 
@@ -31,5 +32,5 @@ class SimpleTokenizerTest(unittest.TestCase):
         self.assertEqual(tokens, expected_tokens)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

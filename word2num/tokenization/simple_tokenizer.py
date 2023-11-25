@@ -1,5 +1,5 @@
 import re
-from abc import ABC, abstractmethod
+
 from .base_tokenizer import BaseTokenizer
 
 

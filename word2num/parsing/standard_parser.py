@@ -1,4 +1,5 @@
 from typing import List, Optional, Tuple
+
 from word2num.parsing.parser import Parser
 from word2num.tokenization import SimpleTokenizer
 from word2num.word_matching.word_matcher import WordMatcher
@@ -48,7 +49,7 @@ class StandardParser(Parser):
         decimal_word = self._find_decimal_separator(words)
         separator_index = words.index(decimal_word)
         integer_words = words[:separator_index]
-        decimal_words = words[separator_index + 1:]
+        decimal_words = words[separator_index + 1 :]
 
         integer_part = self._parse_whole_number(integer_words)
         decimal_part = self._parse_whole_number(decimal_words)
@@ -78,14 +79,15 @@ class StandardParser(Parser):
             digit_string = str(self.matcher.vocabulary.digits[digit])
             digit_strings.append(digit_string)
 
-        digit_sequence = float(''.join(digit_strings))
+        digit_sequence = float("".join(digit_strings))
         return digit_sequence
 
     def _parse_whole_number_sequence(self, words: List[str]) -> Optional[float]:
         """Parses a sequence of whole number words potentially including units (e.g. "twenty-three million")."""
         # Sort units in decreasing order of their numerical value
         sorted_units = sorted(
-            self.matcher.vocabulary.units.items(), key=lambda x: -x[1])
+            self.matcher.vocabulary.units.items(), key=lambda x: -x[1]
+        )
         unit_names = [unit[0] for unit in sorted_units]
 
         for unit_name in unit_names:
@@ -93,17 +95,22 @@ class StandardParser(Parser):
             if word_match:
                 index = words.index(word_match)
                 left_value = self._parse_whole_number(words[:index])
-                right_value = self._parse_whole_number(words[index+1:])
+                right_value = self._parse_whole_number(words[index + 1 :])
 
                 if None in {left_value, right_value}:
                     return None
                 else:
-                    return left_value * self.matcher.vocabulary.units[unit_name] + right_value
+                    return (
+                        left_value * self.matcher.vocabulary.units[unit_name]
+                        + right_value
+                    )
 
         # No units in the sequence, so it's a simple sequence of whole numbers.
         return self._parse_simple_whole_number_sequence(words)
 
-    def _parse_simple_whole_number_sequence(self, words: List[str]) -> Optional[float]:
+    def _parse_simple_whole_number_sequence(
+        self, words: List[str]
+    ) -> Optional[float]:
         """Parses a simple sequence of whole words representing whole numbers, without any units (e.g. "twenty six")."""
         sum = 0
         for word in words:
@@ -125,7 +132,9 @@ class StandardParser(Parser):
             return None
         return whole_part + fraction_part
 
-    def _split_whole_and_fraction(self, words: List[str]) -> Tuple[List[str], List[str]]:
+    def _split_whole_and_fraction(
+        self, words: List[str]
+    ) -> Tuple[List[str], List[str]]:
         """
         Separates a list of words into whole number and fraction parts.
 
@@ -137,7 +146,9 @@ class StandardParser(Parser):
         else:
             return words, []
 
-    def _split_at_fraction_separator(self, words: List[str]) -> Tuple[List[str], List[str]]:
+    def _split_at_fraction_separator(
+        self, words: List[str]
+    ) -> Tuple[List[str], List[str]]:
         """Splits a list of words at the fraction separator."""
         i = len(words) - 1
         separator_index = None
@@ -148,9 +159,9 @@ class StandardParser(Parser):
             i -= 1
 
         if separator_index is not None:
-            return words[:separator_index], words[separator_index + 1:]
+            return words[:separator_index], words[separator_index + 1 :]
         else:
-            return words[:i + 1], words[i + 1:]
+            return words[: i + 1], words[i + 1 :]
 
     def _parse_fraction(self, words: List[str]) -> Optional[float]:
         """Parses a fraction from the given word list."""
@@ -162,14 +173,18 @@ class StandardParser(Parser):
                 numerator_words = words[:i]
                 denominator_word = words[i]
                 numerator = self._parse_numerator(numerator_words)
-                return numerator / self.matcher.match_denominator(denominator_word)
+                return numerator / self.matcher.match_denominator(
+                    denominator_word
+                )
 
     def _parse_numerator(self, words: List[str]) -> Optional[float]:
         """Parses a numerator from the given word list."""
         if not words:
             # If there are no words, the numerator is 1, such as in the string "half"
             return 1
-        elif len(words) == 1 and self.matcher.match_indefinite_article(words[0]):
+        elif len(words) == 1 and self.matcher.match_indefinite_article(
+            words[0]
+        ):
             # There is only one word, and it's an indefinite article, which implies 1 ("a third").
             return 1
         else:

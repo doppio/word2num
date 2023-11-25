@@ -2,6 +2,13 @@
 
 
 
+## [0.1.2] - 2023-11-24
+
+### Fixed
+
+- Fixed multiples bug remaining after refactoring.
+
+
 ## [0.1.1] - 2023-05-11
 
 ### Changed

@@ -1,7 +1,8 @@
 from abc import ABC, abstractclassmethod
-import re
 from typing import Iterable, Optional
+
 from thefuzz import fuzz
+
 from .vocabulary import Vocabulary
 
 
@@ -25,7 +26,9 @@ class WordMatcher(ABC):
         """
         return fuzz.ratio(a, b)
 
-    def _find_exact_match(self, word: str, iterable: Iterable[str]) -> Optional[str]:
+    def _find_exact_match(
+        self, word: str, iterable: Iterable[str]
+    ) -> Optional[str]:
         """
         Checks if the word is in the iterable.
 
@@ -35,7 +38,9 @@ class WordMatcher(ABC):
         """
         return word if word in iterable else None
 
-    def _find_best_fuzzy_match(self, word: str, iterable: Iterable[str]) -> Optional[str]:
+    def _find_best_fuzzy_match(
+        self, word: str, iterable: Iterable[str]
+    ) -> Optional[str]:
         """
         Finds the best fuzzy match for the word in the iterable.
 
@@ -244,7 +249,11 @@ class WordMatcher(ABC):
 
         if irregular_score and regular_score:
             # We found both a regular and irregular denominator match, so return the one with the higher score.
-            return irregular_value if irregular_score > regular_score else regular_value
+            return (
+                irregular_value
+                if irregular_score > regular_score
+                else regular_value
+            )
         elif irregular_score:
             return irregular_value
         elif regular_score:

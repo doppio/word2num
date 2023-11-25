@@ -1,4 +1,5 @@
 import unittest
+
 from word2num import Word2Num
 
 LANGUAGE_CODE = "es"
@@ -19,7 +20,8 @@ class TestSpanishParser(unittest.TestCase):
         self.assertAlmostEqual(parse("uno punto cinco"), 1.5)
         self.assertAlmostEqual(parse("tres coma uno cuatro"), 3.14)
         self.assertAlmostEqual(
-            parse("veintidós punto cero cero tres seis"), 22.0036)
+            parse("veintidós punto cero cero tres seis"), 22.0036
+        )
 
     def test_fractions(self):
         parse = Word2Num(language_code=LANGUAGE_CODE).parse
@@ -43,16 +45,28 @@ class TestSpanishParser(unittest.TestCase):
     def test_complex_numbers(self):
         parse = Word2Num(language_code=LANGUAGE_CODE).parse
 
-        self.assertEqual(parse(
-           "dos mil novecientos cincuenta y seis"), 2956)
+        self.assertEqual(parse("dos mil novecientos cincuenta y seis"), 2956)
         self.assertEqual(
-            parse("cincuenta y siete mil cuatrocientos veintiuno"), 57421)
-        self.assertEqual(parse(
-            "un millón cuatrocientos veintiséis mil novecientos ochenta y siete"), 1426987)
-        self.assertEqual(parse(
-            "nueve mil novecientos noventa y nueve millones novecientos noventa y nueve mil novecientos noventa y nueve"), 9999999999)
-        self.assertAlmostEqual(parse(
-            "ocho mil seiscientos noventa y cuatro millones trescientos mil ciento setenta y dos y tres cuartos"), 8694300172.75)
+            parse("cincuenta y siete mil cuatrocientos veintiuno"), 57421
+        )
+        self.assertEqual(
+            parse(
+                "un millón cuatrocientos veintiséis mil novecientos ochenta y siete"
+            ),
+            1426987,
+        )
+        self.assertEqual(
+            parse(
+                "nueve mil novecientos noventa y nueve millones novecientos noventa y nueve mil novecientos noventa y nueve"
+            ),
+            9999999999,
+        )
+        self.assertAlmostEqual(
+            parse(
+                "ocho mil seiscientos noventa y cuatro millones trescientos mil ciento setenta y dos y tres cuartos"
+            ),
+            8694300172.75,
+        )
 
     def test_large_numbers(self):
         parse = Word2Num(language_code=LANGUAGE_CODE).parse
@@ -77,8 +91,7 @@ class TestSpanishParser(unittest.TestCase):
     def test_misspelled_words(self):
         parse = Word2Num(language_code=LANGUAGE_CODE).parse
         extra_fuzzy_parse = Word2Num(
-            language_code=LANGUAGE_CODE,
-            fuzzy_threshold=60
+            language_code=LANGUAGE_CODE, fuzzy_threshold=60
         ).parse
 
         self.assertEqual(parse("quatro"), 4)
@@ -94,13 +107,10 @@ class TestSpanishParser(unittest.TestCase):
         self.assertIsNone(parse("uno punto seis carpinchos"))
 
     def test_misspelled_words_no_fuzzy(self):
-        parse = Word2Num(
-            language_code=LANGUAGE_CODE,
-            fuzzy_threshold=100
-        ).parse
+        parse = Word2Num(language_code=LANGUAGE_CODE, fuzzy_threshold=100).parse
 
         self.assertIsNone(parse("cuotro"))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
